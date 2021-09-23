@@ -111,8 +111,29 @@ print("<body>")
 
 print(login_page())
 
-#Q6
+# Q6
 
+items = os.environ.get("HTTP_COOKIE").split(";")
+
+pairs = {}
+
+for item in items:
+    split = item.split("=")
+    pairs[split[0].strip()] = split[1].strip()
+
+print("<br>")
+
+import secret
+
+
+try:
+    if pairs["username"] == secret.username and pairs["password"] == secret.password:
+        import templates
+
+        print("user is logged in <br><br>")
+        print(templates.secret_page(pairs["username"], pairs["password"]))
+except KeyError:
+    print("user is not logged in <br><br>")
 
 
 print("</html>")

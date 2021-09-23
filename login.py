@@ -1,8 +1,7 @@
 import cgi
 import secret
-import cgitb
+from http import cookies
 
-cgitb.enable()
 
 form = cgi.FieldStorage()
 
@@ -12,16 +11,21 @@ password = form["password"].value
 
 
 if name == secret.username and password == secret.password:
-    print(
-        f"Set-Cookie: username = {name};\r\n",
-    )
+
+    # cookie = cookies.SimpleCookie()
+
+    # cookie["username"] = name
+    # cookie["password"] = password
+    # print(cookie)
 
     print(
-        f"Set-Cookie: password = {password};\n\n",
+        f"Set-Cookie: username = {name}\r\nSet-Cookie: password = {password}",
     )
 
-    # print("Content-type:text/html\r\n\r\n")
-    # print("login success")
+    print("Content-type:text/html\r\n\r\n")
+    print("login success")
+
+
 else:
     import templates
 
